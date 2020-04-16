@@ -1,10 +1,13 @@
+import { GroceryList } from './GroceryList';
 import {
   BaseEntity,
   Entity,
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  ManyToOne,
 } from 'typeorm';
+import { type } from 'os';
 
 @Entity('items')
 export class Item extends BaseEntity {
@@ -21,4 +24,9 @@ export class Item extends BaseEntity {
     type: 'timestamp',
   })
   created: string;
+
+  @ManyToOne((type) => GroceryList, (groceryList) => groceryList.items, {
+    onDelete: 'CASCADE',
+  })
+  grocery_list: GroceryList;
 }
